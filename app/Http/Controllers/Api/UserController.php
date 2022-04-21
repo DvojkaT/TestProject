@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\AuthResource;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
 use App\Services\Abstracts\UserServiceInterface;
@@ -22,11 +23,7 @@ class UserController extends Controller
 
     public function store(RegisterRequest $request)
     {
-        try {
-            $user = $this->service->createUser($request->validated());
-        } catch (QueryException) {
-            abort(409,"Пользователь с такой почтой уже существует");
-        }
+        $user = $this->service->createUser($request->validated());
         Auth::login($user);
         $token = $user->createToken('token')->accessToken;
         $auth_object = new AuthObject($token, $user, $user->password);
@@ -38,6 +35,11 @@ class UserController extends Controller
     {
         $auth_object = $this->service->auth($request);
         return AuthResource::make($auth_object);
+    }
+
+    public function restorePassword(Request $email)
+    {
+        return $this->service->restorePassword($email);
     }
 
 }
