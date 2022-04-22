@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Domain\Enums\TypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class RestoreConfirmRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +24,9 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|email|string',
-            'type' => 'required|string|in:'.implode(",", TypeEnum::values()),
+            'token' => 'required',
             'password' => 'required',
-            'github' => 'required|string',
-            'city' => 'required|string',
-            'phone' => 'required|string',
-            'birthday' => 'required|string',
+            'confirm_password' => 'required|same:password'
         ];
     }
 }

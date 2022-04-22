@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domain\DTO\AuthObject;
+use App\Exceptions\UserNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
@@ -48,4 +49,5 @@ class UserController extends Controller
         return new Response('', 201);
     }
 
+    //public function restoreConfirmPassword(RestoreConfirmRequest)
 }
