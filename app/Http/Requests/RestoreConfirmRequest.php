@@ -24,9 +24,9 @@ class RestoreConfirmRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password'
+            'token' => 'required|string',
+            'password' => 'required|string|confirmed',
+            'password_confirmation' => 'required|string|'
         ];
     }
 }

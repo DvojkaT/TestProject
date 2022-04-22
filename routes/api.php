@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\UserController;
-use \App\Http\Controllers\Api\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +15,9 @@ use \App\Http\Controllers\Api\MailController;
 */
 
 Route::post('/auth/register', [UserController::class, 'store']);
+
 Route::post('/auth/login', [UserController::class, 'authenticate']);
 
 Route::post('/auth/restore', [UserController::class, 'restorePassword']);
+
+Route::post('/auth/restore/confirm', [UserController::class, 'restoreConfirmPassword']);

@@ -51,7 +51,7 @@ class UserService implements UserServiceInterface
         return new AuthObject($token, $user, $user->password);
     }
 
-    public function restorePassword(string $email, string $token_hash)
+    public function restorePassword(string $email, string $token_hash): void
     {
         $user = $this->repository->findWhere([
             'email' => $email
@@ -65,5 +65,22 @@ class UserService implements UserServiceInterface
         $token = $this->user_token_repository->create($tokenFields);
 
         Mail::to($email)->send(new RestorePassword($token));
+    }
+
+    public function restoreConfirmPassword(string $token, string $password)
+    {
+        $user_token = $this->user_token_repository->findWhere([
+            'token' => $token
+        ])->first();
+
+        if (!$user_token) abort('404');
+
+        $user = $this->repository->findWhere([
+            'id' => $user_token->user_id,
+        ])->first();
+
+        $user->password = $password;
+
+        $user->save();
     }
 }

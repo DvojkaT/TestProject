@@ -30,5 +30,12 @@ interface UserServiceInterface
      * @param string $token_hash
      * @return void
      */
-    public function restorePassword(string $email, string $token_hash);
+    public function restorePassword(string $email, string $token_hash): void;
+
+    /**
+     * @param string $token
+     * @param string $password
+     * @return void
+     */
+    public function restoreConfirmPassword(string $token, string $password);
 }

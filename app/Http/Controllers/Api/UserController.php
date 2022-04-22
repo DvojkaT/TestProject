@@ -7,9 +7,8 @@ use App\Exceptions\UserNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RestoreConfirmRequest;
 use App\Http\Resources\AuthResource;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
@@ -49,5 +48,11 @@ class UserController extends Controller
         return new Response('', 201);
     }
 
-    //public function restoreConfirmPassword(RestoreConfirmRequest)
+    public function restoreConfirmPassword(RestoreConfirmRequest $request)
+    {
+        throw new UserNotFoundException();
+        $this->service->restoreConfirmPassword($request->input('token'), $request->input("password"));
+
+        return new Response('', 201);
+    }
 }
