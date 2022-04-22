@@ -4,14 +4,12 @@ namespace App\Services;
 
 use App\Domain\DTO\AuthObject;
 use App\Domain\Enums\UserRoleEnum;
-use App\Http\Requests\LoginRequest;
 use App\Mail\RestorePassword;
 use App\Models\User;
-use App\Models\UserToken;
 use App\Repositories\Abstracts\RoleRepository;
 use App\Repositories\Abstracts\UserRepository;
+use App\Repositories\Abstracts\UserTokenRepository;
 use App\Services\Abstracts\UserServiceInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,10 +19,13 @@ class UserService implements UserServiceInterface
 
     public RoleRepository $role_repository;
 
-    public function __construct(UserRepository $repository, RoleRepository $role_repository)
+    public UserTokenRepository $user_token_repository;
+
+    public function __construct(UserRepository $repository, RoleRepository $role_repository, UserTokenRepository $user_token_repository)
     {
         $this->repository = $repository;
         $this->role_repository = $role_repository;
+        $this->user_token_repository = $user_token_repository;
     }
 
     /**
@@ -40,28 +41,29 @@ class UserService implements UserServiceInterface
     /**
      * @inheritDoc
      */
-    public function auth(LoginRequest $request) : AuthObject
+    public function auth(string $email, string $password) : AuthObject
     {
-        $credentials = $request->validated();
-        Auth::attempt($credentials);
+        Auth::attempt(['email' => $email, 'password' => $password]);
         $user = $this->repository->findWhere([
-            'email' => $credentials['email']
+            'email' => $email
         ])->first();
         $token = $user->createToken('token')->accessToken;
         return new AuthObject($token, $user, $user->password);
     }
 
-    public function restorePassword(Request $request): string
+    public function restorePassword(string $email, string $token_hash)
     {
         $user = $this->repository->findWhere([
-            'email' => $request['email']
+            'email' => $email
         ])->first();
 
-        $token = new UserToken;
+        $tokenFields = [
+            'user_id' => $user->id,
+            'token' => $token_hash,
+        ];
 
-        $user->createToken('token')->accessToken;
-        $user->token_id = $token['id'];
-        dd($user->tokens());
-        Mail::to($request)->send();
+        $token = $this->user_token_repository->create($tokenFields);
+
+        Mail::to($email)->send(new RestorePassword($token));
     }
 }

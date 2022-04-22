@@ -5,8 +5,10 @@ namespace App\Providers;
 
 use App\Repositories\Abstracts\RoleRepository;
 use App\Repositories\Abstracts\UserRepository;
+use App\Repositories\Abstracts\UserTokenRepository;
 use App\Repositories\RoleRepositoryEloquent;
 use App\Repositories\UserRepositoryEloquent;
+use App\Repositories\UserTokenRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -15,6 +17,7 @@ class RepositoryServiceProvider extends ServiceProvider
     protected $repositories = [
         UserRepository::class => UserRepositoryEloquent::class,
         RoleRepository::class => RoleRepositoryEloquent::class,
+        UserTokenRepository::class => UserTokenRepositoryEloquent::class,
     ];
 
     /**

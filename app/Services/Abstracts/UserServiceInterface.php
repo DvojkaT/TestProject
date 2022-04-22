@@ -3,6 +3,7 @@
 namespace App\Services\Abstracts;
 
 use App\Domain\DTO\AuthObject;
+use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Models\UserToken;
@@ -18,10 +19,16 @@ interface UserServiceInterface
     public function createUser(array $fields): User;
 
     /**
-     * @param LoginRequest $request
+     * @param string $email
+     * @param string $password
      * @return AuthObject
      */
-    public function auth(LoginRequest $request) : AuthObject;
+    public function auth(string $email, string $password) : AuthObject;
 
-    public function restorePassword(Request $request): string;
+    /**
+     * @param string $email
+     * @param string $token_hash
+     * @return void
+     */
+    public function restorePassword(string $email, string $token_hash);
 }
