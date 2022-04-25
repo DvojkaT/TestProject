@@ -3,6 +3,7 @@
 namespace App\Services\Abstracts;
 
 use App\Domain\DTO\AuthObject;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 
 interface UserServiceInterface
@@ -33,4 +34,6 @@ interface UserServiceInterface
      * @return void
      */
     public function restoreConfirmPassword(string $token, string $password): void;
+
+    public function showUser(int $user_id): UserResource;
 }

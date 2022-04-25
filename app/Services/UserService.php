@@ -6,6 +6,7 @@ use App\Domain\DTO\AuthObject;
 use App\Domain\Enums\UserRoleEnum;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Exceptions\TokenNotFoundHttpException;
+use App\Http\Resources\UserResource;
 use App\Mail\RestorePassword;
 use App\Models\User;
 use App\Repositories\Abstracts\RoleRepository;
@@ -98,5 +99,14 @@ class UserService implements UserServiceInterface
         $user->password = Hash::make($password);
 
         $user->save();
+    }
+
+    public function showUser(int $user_id): UserResource
+    {
+        $user = $this->repository->findWhere([
+            'id' => $user_id
+        ])->first();
+
+        return new UserResource($user);
     }
 }

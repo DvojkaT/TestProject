@@ -28,6 +28,9 @@ class UserResource extends JsonResource
             "is_finished" => $this->is_finished,
             'phone' => $this->phone,
             'birthday' => $this->birthday,
+            'worker' => [
+
+            ]
         ];
     }
 }

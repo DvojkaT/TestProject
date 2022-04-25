@@ -21,3 +21,5 @@ Route::post('/auth/login', [UserController::class, 'authenticate']);
 Route::post('/auth/restore', [UserController::class, 'restorePassword']);
 
 Route::post('/auth/restore/confirm', [UserController::class, 'restoreConfirmPassword']);
+
+Route::get('/user', [UserController::class, 'showUser'])->middleware('auth:api');

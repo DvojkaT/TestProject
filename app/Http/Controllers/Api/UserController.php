@@ -9,6 +9,7 @@ use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RestoreConfirmRequest;
 use App\Http\Resources\AuthResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
@@ -57,5 +58,12 @@ class UserController extends Controller
         $this->service->restoreConfirmPassword($request->input('token'), $request->input("password"));
 
         return new Response('', 201);
+    }
+
+    public function showUser()
+    {
+        $user = $this->service->showUser(Auth::id());
+
+        return UserResource::make($user);
     }
 }
