@@ -3,9 +3,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\Abstracts\DepartmentRepository;
+use App\Repositories\Abstracts\PositionRepository;
 use App\Repositories\Abstracts\RoleRepository;
 use App\Repositories\Abstracts\UserRepository;
 use App\Repositories\Abstracts\UserTokenRepository;
+use App\Repositories\DepartmentRepositoryEloquent;
+use App\Repositories\PositionRepositoryEloquent;
 use App\Repositories\RoleRepositoryEloquent;
 use App\Repositories\UserRepositoryEloquent;
 use App\Repositories\UserTokenRepositoryEloquent;
@@ -18,6 +22,8 @@ class RepositoryServiceProvider extends ServiceProvider
         UserRepository::class => UserRepositoryEloquent::class,
         RoleRepository::class => RoleRepositoryEloquent::class,
         UserTokenRepository::class => UserTokenRepositoryEloquent::class,
+        DepartmentRepository::class => DepartmentRepositoryEloquent::class,
+        PositionRepository::class => PositionRepositoryEloquent::class,
     ];
 
     /**

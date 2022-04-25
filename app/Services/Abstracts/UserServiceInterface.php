@@ -4,6 +4,7 @@ namespace App\Services\Abstracts;
 
 use App\Domain\DTO\AuthObject;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\WorkerResource;
 use App\Models\User;
 
 interface UserServiceInterface
@@ -38,4 +39,5 @@ interface UserServiceInterface
     public function showUser(int $user_id): UserResource;
 
     public function editUser(int $user_id, array $fields): UserResource;
+    public function showWorker($id): WorkerResource;
 }

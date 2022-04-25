@@ -17,8 +17,8 @@ return new class extends Migration
             $table->UnsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('adopted_at')->nullable();
             $table->unsignedBigInteger('position_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments');
-            $table->foreign('position_id')->references('id')->on('positions');
+            $table->foreign('department_id')->references('id')->on('department');
+            $table->foreign('position_id')->references('id')->on('position');
         });
     }
 

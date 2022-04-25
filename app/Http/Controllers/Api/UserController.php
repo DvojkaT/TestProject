@@ -11,6 +11,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RestoreConfirmRequest;
 use App\Http\Resources\AuthResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\WorkerResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
@@ -75,4 +76,12 @@ class UserController extends Controller
 
         return UserResource::make($user);
     }
+
+    public function showWorker($id)
+    {
+        $worker = $this->service->showWorker($id);
+
+        return WorkerResource::make($worker);
+    }
+
 }

@@ -7,8 +7,11 @@ use App\Domain\Enums\UserRoleEnum;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Exceptions\TokenNotFoundHttpException;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\WorkerResource;
 use App\Mail\RestorePassword;
 use App\Models\User;
+use App\Repositories\Abstracts\DepartmentRepository;
+use App\Repositories\Abstracts\PositionRepository;
 use App\Repositories\Abstracts\RoleRepository;
 use App\Repositories\Abstracts\UserRepository;
 use App\Repositories\Abstracts\UserTokenRepository;
@@ -25,11 +28,19 @@ class UserService implements UserServiceInterface
 
     public UserTokenRepository $user_token_repository;
 
-    public function __construct(UserRepository $repository, RoleRepository $role_repository, UserTokenRepository $user_token_repository)
+    public DepartmentRepository $department_repository;
+
+    public PositionRepository $position_repository;
+
+    public function __construct(UserRepository $repository, RoleRepository $role_repository,
+                                UserTokenRepository $user_token_repository, DepartmentRepository $department_repository,
+                                PositionRepository $position_repository)
     {
         $this->repository = $repository;
         $this->role_repository = $role_repository;
         $this->user_token_repository = $user_token_repository;
+        $this->department_repository = $department_repository;
+        $this->position_repository = $position_repository;
     }
 
     /**
@@ -120,5 +131,22 @@ class UserService implements UserServiceInterface
         $user->update($fields);
 
         return new UserResource($user);
+    }
+
+    public function showWorker($id): WorkerResource
+    {
+        $worker = $this->repository->findWhere([
+            'id' => $id,
+        ])->first();
+
+        $worker->department = $this->department_repository->findWhere([
+            'id' => $worker->department_id,
+        ])->first()->value('name');
+
+        $worker->position = $this->position_repository->findWhere([
+            'id' => $worker->position_id,
+        ])->first()->value('name');
+
+        return new WorkerResource($worker);
     }
 }
