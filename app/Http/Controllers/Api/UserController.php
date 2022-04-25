@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domain\DTO\AuthObject;
-use App\Exceptions\UserNotFoundException;
+use App\Exceptions\UserNotFoundHttpException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
@@ -13,6 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
 use App\Services\Abstracts\UserServiceInterface;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -27,9 +28,12 @@ class UserController extends Controller
     public function store(RegisterRequest $request)
     {
         $user = $this->service->createUser($request->validated());
+        $password = Str::random(10);
+        $user->password = Hash::make($password);
+        $user->save();
         Auth::login($user);
         $token = $user->createToken('token')->accessToken;
-        $auth_object = new AuthObject($token, $user, $user->password);
+        $auth_object = new AuthObject($token, $user, $password);
 
         return AuthResource::make($auth_object);
     }
@@ -50,7 +54,6 @@ class UserController extends Controller
 
     public function restoreConfirmPassword(RestoreConfirmRequest $request)
     {
-        throw new UserNotFoundException();
         $this->service->restoreConfirmPassword($request->input('token'), $request->input("password"));
 
         return new Response('', 201);

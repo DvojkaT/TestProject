@@ -3,12 +3,7 @@
 namespace App\Services\Abstracts;
 
 use App\Domain\DTO\AuthObject;
-use App\Http\Requests\EmailRequest;
-use App\Http\Requests\LoginRequest;
 use App\Models\User;
-use App\Models\UserToken;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 interface UserServiceInterface
 {
@@ -37,5 +32,5 @@ interface UserServiceInterface
      * @param string $password
      * @return void
      */
-    public function restoreConfirmPassword(string $token, string $password);
+    public function restoreConfirmPassword(string $token, string $password): void;
 }

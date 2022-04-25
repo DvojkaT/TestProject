@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Domain\DTO\AuthObject;
 use App\Domain\Enums\UserRoleEnum;
+use App\Exceptions\WrongPasswordHttpException;
 use App\Mail\RestorePassword;
 use App\Models\User;
 use App\Repositories\Abstracts\RoleRepository;
@@ -11,6 +12,7 @@ use App\Repositories\Abstracts\UserRepository;
 use App\Repositories\Abstracts\UserTokenRepository;
 use App\Services\Abstracts\UserServiceInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class UserService implements UserServiceInterface
@@ -43,14 +45,21 @@ class UserService implements UserServiceInterface
      */
     public function auth(string $email, string $password) : AuthObject
     {
-        Auth::attempt(['email' => $email, 'password' => $password]);
-        $user = $this->repository->findWhere([
-            'email' => $email
-        ])->first();
-        $token = $user->createToken('token')->accessToken;
-        return new AuthObject($token, $user, $user->password);
+            $user = $this->repository->findWhere([
+                'email' => $email
+            ])->first();
+            if (!Hash::check($password, $user->password)) {
+               throw new WrongPasswordHttpException();
+            }
+            Auth::login($user);
+            $token = $user->createToken('token')->accessToken;
+            return new AuthObject($token, $user, $password);
+
     }
 
+    /**
+     * @inheritDoc
+     */
     public function restorePassword(string $email, string $token_hash): void
     {
         $user = $this->repository->findWhere([
@@ -67,12 +76,14 @@ class UserService implements UserServiceInterface
         Mail::to($email)->send(new RestorePassword($token));
     }
 
-    public function restoreConfirmPassword(string $token, string $password)
+    /**
+     * @inheritDoc
+     */
+    public function restoreConfirmPassword(string $token, string $password): void
     {
         $user_token = $this->user_token_repository->findWhere([
             'token' => $token
         ])->first();
-
         if (!$user_token) abort('404');
 
         $user = $this->repository->findWhere([
