@@ -90,7 +90,7 @@ class UserService implements UserServiceInterface
             'id' => $user_token->user_id,
         ])->first();
 
-        $user->password = $password;
+        $user->password = Hash::make($password);
 
         $user->save();
     }
