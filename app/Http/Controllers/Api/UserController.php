@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Domain\DTO\AuthObject;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RestoreConfirmRequest;
@@ -63,6 +64,14 @@ class UserController extends Controller
     public function showUser()
     {
         $user = $this->service->showUser(Auth::id());
+
+        return UserResource::make($user);
+    }
+
+    public function editUser(EditUserRequest $request)
+    {
+        $fields = $request->validated();
+        $user = $this->service->editUser(Auth::id(),$fields);
 
         return UserResource::make($user);
     }

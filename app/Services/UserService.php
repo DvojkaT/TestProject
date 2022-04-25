@@ -109,4 +109,14 @@ class UserService implements UserServiceInterface
 
         return new UserResource($user);
     }
+
+    public function editUser(int $user_id, array $fields): UserResource
+    {
+        $user = $this->repository->findWhere([
+            'id' => $user_id,
+    ])->first();
+        $user->update($fields);
+
+        return new UserResource($user);
+    }
 }

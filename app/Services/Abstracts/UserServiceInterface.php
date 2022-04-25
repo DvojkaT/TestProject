@@ -36,4 +36,6 @@ interface UserServiceInterface
     public function restoreConfirmPassword(string $token, string $password): void;
 
     public function showUser(int $user_id): UserResource;
+
+    public function editUser(int $user_id, array $fields): UserResource;
 }
