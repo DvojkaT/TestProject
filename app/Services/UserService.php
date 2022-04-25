@@ -37,9 +37,11 @@ class UserService implements UserServiceInterface
      */
     public function createUser(array $fields): User
     {
-        if ($this->repository->findWhere([
+        $user_check = $this->repository->findWhere([
             'email' => $fields['email'],
-        ])) throw new UserAlreadyExistsHttpException();
+        ])->first();
+
+        if($user_check) throw new UserAlreadyExistsHttpException();
 
         $role = $this->role_repository->findWhere(['name' => UserRoleEnum::USER])->first();
         $fields['role_id'] = $role->id;

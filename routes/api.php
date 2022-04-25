@@ -24,3 +24,5 @@ Route::post('/auth/restore/confirm', [UserController::class, 'restoreConfirmPass
 
 Route::get('/user', [UserController::class, 'showUser'])->middleware('auth:api');
 Route::post('/user', [UserController::class, 'editUser'])->middleware('auth:api');
+
+//Route::get('/workers/{user}', [User])
