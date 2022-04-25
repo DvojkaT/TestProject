@@ -2,19 +2,19 @@
 
 namespace App\Exceptions;
 
-class WrongPasswordHttpException extends BaseHttpException
+class TokenNotFoundHttpException extends BaseHttpException
 {
     /**
      * HTTP код ошибки
      *
      * @var int
      */
-    protected int $statusCode = 408;
+    protected int $statusCode = 404;
 
     /**
      * Сообщение об ошибке
      *
      * @var string|null
      */
-    protected $message = "Ошибка в заполнении данных";
+    protected $message = "Пользователь с таким токеном не найден";
 }

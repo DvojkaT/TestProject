@@ -4,7 +4,8 @@ namespace App\Services;
 
 use App\Domain\DTO\AuthObject;
 use App\Domain\Enums\UserRoleEnum;
-use App\Exceptions\WrongPasswordHttpException;
+use App\Exceptions\UserAlreadyExistsHttpException;
+use App\Exceptions\TokenNotFoundHttpException;
 use App\Mail\RestorePassword;
 use App\Models\User;
 use App\Repositories\Abstracts\RoleRepository;
@@ -35,6 +36,10 @@ class UserService implements UserServiceInterface
      */
     public function createUser(array $fields): User
     {
+        if ($this->repository->findWhere([
+            'email' => $fields['email'],
+        ])) throw new UserAlreadyExistsHttpException();
+
         $role = $this->role_repository->findWhere(['name' => UserRoleEnum::USER])->first();
         $fields['role_id'] = $role->id;
         return $this->repository->create($fields);
@@ -49,7 +54,7 @@ class UserService implements UserServiceInterface
                 'email' => $email
             ])->first();
             if (!Hash::check($password, $user->password)) {
-               throw new WrongPasswordHttpException();
+               throw new TokenNotFoundHttpException();
             }
             Auth::login($user);
             $token = $user->createToken('token')->accessToken;
@@ -84,7 +89,7 @@ class UserService implements UserServiceInterface
         $user_token = $this->user_token_repository->findWhere([
             'token' => $token
         ])->first();
-        if (!$user_token) abort('404');
+        if (!$user_token) throw new TokenNotFoundHttpException();
 
         $user = $this->repository->findWhere([
             'id' => $user_token->user_id,

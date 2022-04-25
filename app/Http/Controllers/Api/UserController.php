@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domain\DTO\AuthObject;
-use App\Exceptions\UserNotFoundHttpException;
+use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
