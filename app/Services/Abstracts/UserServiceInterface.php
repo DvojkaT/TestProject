@@ -40,9 +40,28 @@ interface UserServiceInterface
      */
     public function restoreConfirmPassword(string $token, string $password): void;
 
+    /**
+     * @param int $user_id
+     * @return User
+     */
     public function showUser(int $user_id): User;
 
+    /**
+     * @param int $user_id
+     * @param array $fields
+     * @return User
+     */
     public function editUser(int $user_id, array $fields): User;
+
+    /**
+     * @param $id
+     * @return User
+     */
     public function showWorker($id): User;
+
+    /**
+     * @param WorkerFilter $object
+     * @return LengthAwarePaginator
+     */
     public function listWorkers(WorkerFilter $object): LengthAwarePaginator;
 }

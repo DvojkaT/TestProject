@@ -6,5 +6,8 @@ use Illuminate\Support\Collection;
 
 interface DepartmentServiceInterface
 {
+    /**
+     * @return Collection
+     */
     public function listDepartments(): Collection;
 }

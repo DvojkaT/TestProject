@@ -118,6 +118,9 @@ class UserService implements UserServiceInterface
         $user->save();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function showUser(int $user_id): User
     {
         return $this->repository->findWhere([
@@ -125,6 +128,9 @@ class UserService implements UserServiceInterface
         ])->first();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function editUser(int $user_id, array $fields): User
     {
         $user = $this->repository->findWhere([
@@ -135,6 +141,9 @@ class UserService implements UserServiceInterface
         return $user;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function showWorker($id): User
     {
         return $this->repository->findWhere([
@@ -142,6 +151,9 @@ class UserService implements UserServiceInterface
         ])->first();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function listWorkers(WorkerFilter $object): LengthAwarePaginator
     {
         return $this->repository->filter($object);
