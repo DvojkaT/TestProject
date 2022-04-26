@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchRequest;
 use App\Repositories\Abstracts\DepartmentRepository;
 use App\Repositories\Abstracts\UserRepository;
 use App\Services\Abstracts\DepartmentServiceInterface;
@@ -22,8 +23,15 @@ class DepartmentService implements DepartmentServiceInterface
     /**
      * @inheritDoc
      */
-    public function listDepartments(): Collection
+    public function listDepartments(string $search = null): Collection
     {
+        if(!$search) {
         return $this->department_repository->all();
+        }
+        else {
+            return $this->department_repository->findWhere([
+                ['name', 'like', '%' . $search . '%'],
+            ]);
+        }
     }
 }

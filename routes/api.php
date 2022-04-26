@@ -36,3 +36,4 @@ Route::get('/workers', [UserController::class, 'listWorkers'])->middleware('auth
 
 
 Route::get('/departments', [DepartmentController::class, 'listDepartments'])->middleware('auth:api');
+Route::get('/departments/select', [DepartmentController::class,'selectDepartments']);
