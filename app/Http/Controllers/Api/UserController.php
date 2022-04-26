@@ -72,7 +72,7 @@ class UserController extends Controller
         return UserResource::make($user);
     }
 
-    public function editUser(EditUserRequest $request)
+    public function editUser(EditUserRequest $request): UserResource
     {
         $fields = $request->validated();
         $user = $this->service->editUser(Auth::id(), $fields);

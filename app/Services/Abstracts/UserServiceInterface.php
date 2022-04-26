@@ -42,7 +42,7 @@ interface UserServiceInterface
 
     public function showUser(int $user_id): UserResource;
 
-    public function editUser(int $user_id, array $fields): UserResource;
+    public function editUser(int $user_id, array $fields): User;
     public function showWorker($id): User;
     public function listWorkers(WorkerObject $object): LengthAwarePaginator;
 }
