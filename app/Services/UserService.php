@@ -139,14 +139,6 @@ class UserService implements UserServiceInterface
             'id' => $id,
         ])->first();
 
-        $worker->department = $this->department_repository->findWhere([
-            'id' => $worker->department_id,
-        ])->first()->value('name');
-
-        $worker->position = $this->position_repository->findWhere([
-            'id' => $worker->position_id,
-        ])->first()->value('name');
-
         return new WorkerResource($worker);
     }
 }

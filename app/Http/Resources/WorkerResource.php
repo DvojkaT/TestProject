@@ -24,8 +24,8 @@ class WorkerResource extends JsonResource
             'type' => $this->type,
             'github' => $this->github,
             'worker' => [
-                'department' => $this->department,
-                'position' => $this->position,
+                'department' => $this->department->name,
+                'position' => $this->position->name,
                 'adopted_at' => $this->adopted_at,
             ]
         ];
