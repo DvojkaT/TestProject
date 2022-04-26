@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Services\Abstracts\MailServiceInterface;
+use App\Services\Abstracts\DepartmentServiceInterface;
 use App\Services\Abstracts\UserServiceInterface;
-use App\Services\MailService;
+use App\Services\DepartmentService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
 {
     protected array $services = [
         UserServiceInterface::class => UserService::class,
-        MailServiceInterface::class => MailService::class,
+        DepartmentServiceInterface::class => DepartmentService::class,
     ];
     /**
      * Register any application services.
