@@ -27,7 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('token_id')->nullable();
+            $table->foreign('token_id')->references('id')->on('user_tokens')->restrictOnDelete();
         });
     }
 };
