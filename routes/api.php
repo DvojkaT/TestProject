@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\UserController;
 use \App\Http\Controllers\Api\DepartmentController;
@@ -15,19 +17,22 @@ use \App\Http\Controllers\Api\DepartmentController;
 |
 */
 
-Route::post('/auth/register', [UserController::class, 'store']);
+Route::post('/auth/register', [AuthController::class, 'store']);
 
-Route::post('/auth/login', [UserController::class, 'authenticate']);
+Route::post('/auth/login', [AuthController::class, 'authenticate']);
 
-Route::post('/auth/restore', [UserController::class, 'restorePassword']);
+Route::post('/auth/restore', [AuthController::class, 'restorePassword']);
 
-Route::post('/auth/restore/confirm', [UserController::class, 'restoreConfirmPassword']);
+Route::post('/auth/restore/confirm', [AuthController::class, 'restoreConfirmPassword']);
+
 
 Route::get('/user', [UserController::class, 'showUser'])->middleware('auth:api');
+
 Route::post('/user', [UserController::class, 'editUser'])->middleware('auth:api');
 
 Route::get('/workers/{user}', [UserController::class, 'showWorker'])->middleware('auth:api');
 
 Route::get('/workers', [UserController::class, 'listWorkers'])->middleware('auth:api');
+
 
 Route::get('/departments', [DepartmentController::class, 'listDepartments'])->middleware('auth:api');
