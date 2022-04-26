@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Domain\DTO\WorkerObject;
+use App\Domain\DTO\WorkerFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use App\Repositories\Abstracts\UserRepository;
@@ -17,7 +17,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
-    public function filter(?WorkerObject $object, int $per_page = 10): LengthAwarePaginator | Collection
+    public function filter(?WorkerFilter $object, int $per_page = 10): LengthAwarePaginator | Collection
     {
         /** @var Builder $builder */
         $builder = $this->model;

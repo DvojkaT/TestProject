@@ -2,7 +2,7 @@
 
 namespace App\Domain\DTO;
 
-class WorkerObject
+class WorkerFilter
 {
     public ?string $query;
 

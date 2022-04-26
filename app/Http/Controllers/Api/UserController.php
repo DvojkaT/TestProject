@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domain\DTO\AuthObject;
-use App\Domain\DTO\WorkerObject;
+use App\Domain\DTO\WorkerFilter;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditUserRequest;
@@ -89,7 +89,7 @@ class UserController extends Controller
 
     public function listWorkers(WorkersListRequest $request)
     {
-        $worker_obj = new WorkerObject($request->input('query'), $request->input('department_id'), $request->input('position_id'));
+        $worker_obj = new WorkerFilter($request->input('query'), $request->input('department_id'), $request->input('position_id'));
         $worker_list = $this->service->listWorkers($worker_obj);
 
         return WorkersListResource::collection($worker_list);

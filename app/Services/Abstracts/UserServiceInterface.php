@@ -3,7 +3,7 @@
 namespace App\Services\Abstracts;
 
 use App\Domain\DTO\AuthObject;
-use App\Domain\DTO\WorkerObject;
+use App\Domain\DTO\WorkerFilter;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\WorkerResource;
 use App\Http\Resources\WorkersListResource;
@@ -44,5 +44,5 @@ interface UserServiceInterface
 
     public function editUser(int $user_id, array $fields): User;
     public function showWorker($id): User;
-    public function listWorkers(WorkerObject $object): LengthAwarePaginator;
+    public function listWorkers(WorkerFilter $object): LengthAwarePaginator;
 }

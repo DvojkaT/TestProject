@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Domain\DTO\AuthObject;
-use App\Domain\DTO\WorkerObject;
+use App\Domain\DTO\WorkerFilter;
 use App\Domain\Enums\UserRoleEnum;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Exceptions\TokenNotFoundHttpException;
@@ -142,7 +142,7 @@ class UserService implements UserServiceInterface
         ])->first();
     }
 
-    public function listWorkers(WorkerObject $object): LengthAwarePaginator
+    public function listWorkers(WorkerFilter $object): LengthAwarePaginator
     {
         return $this->repository->filter($object);
     }
