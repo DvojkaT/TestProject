@@ -80,7 +80,7 @@ class UserController extends Controller
         return UserResource::make($user);
     }
 
-    public function showWorker($id)
+    public function showWorker($id): WorkerResource
     {
         $worker = $this->service->showWorker($id);
 

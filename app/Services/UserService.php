@@ -137,13 +137,11 @@ class UserService implements UserServiceInterface
         return new UserResource($user);
     }
 
-    public function showWorker($id): WorkerResource
+    public function showWorker($id): User
     {
-        $worker = $this->repository->findWhere([
+        return $this->repository->findWhere([
             'id' => $id,
         ])->first();
-
-        return new WorkerResource($worker);
     }
 
     public function listWorkers(WorkerObject $object): LengthAwarePaginator
