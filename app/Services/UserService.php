@@ -3,11 +3,13 @@
 namespace App\Services;
 
 use App\Domain\DTO\AuthObject;
+use App\Domain\DTO\WorkerObject;
 use App\Domain\Enums\UserRoleEnum;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Exceptions\TokenNotFoundHttpException;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\WorkerResource;
+use App\Http\Resources\WorkersListResource;
 use App\Mail\RestorePassword;
 use App\Models\User;
 use App\Repositories\Abstracts\DepartmentRepository;
@@ -16,6 +18,8 @@ use App\Repositories\Abstracts\RoleRepository;
 use App\Repositories\Abstracts\UserRepository;
 use App\Repositories\Abstracts\UserTokenRepository;
 use App\Services\Abstracts\UserServiceInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -140,5 +144,10 @@ class UserService implements UserServiceInterface
         ])->first();
 
         return new WorkerResource($worker);
+    }
+
+    public function listWorkers(WorkerObject $object): LengthAwarePaginator
+    {
+        return $this->repository->filter($object);
     }
 }

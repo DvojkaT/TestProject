@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domain\DTO\AuthObject;
+use App\Domain\DTO\WorkerObject;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\EmailRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RestoreConfirmRequest;
+use App\Http\Requests\WorkersListRequest;
 use App\Http\Resources\AuthResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\WorkerResource;
+use App\Http\Resources\WorkersListResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
@@ -72,7 +75,7 @@ class UserController extends Controller
     public function editUser(EditUserRequest $request)
     {
         $fields = $request->validated();
-        $user = $this->service->editUser(Auth::id(),$fields);
+        $user = $this->service->editUser(Auth::id(), $fields);
 
         return UserResource::make($user);
     }
@@ -84,4 +87,11 @@ class UserController extends Controller
         return WorkerResource::make($worker);
     }
 
+    public function listWorkers(WorkersListRequest $request)
+    {
+        $worker_obj = new WorkerObject($request->input('query'), $request->input('department_id'), $request->input('position_id'));
+        $worker_list = $this->service->listWorkers($worker_obj);
+
+        return WorkersListResource::collection($worker_list);
+    }
 }

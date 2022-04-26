@@ -3,9 +3,13 @@
 namespace App\Services\Abstracts;
 
 use App\Domain\DTO\AuthObject;
+use App\Domain\DTO\WorkerObject;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\WorkerResource;
+use App\Http\Resources\WorkersListResource;
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 interface UserServiceInterface
 {
@@ -40,4 +44,5 @@ interface UserServiceInterface
 
     public function editUser(int $user_id, array $fields): UserResource;
     public function showWorker($id): WorkerResource;
+    public function listWorkers(WorkerObject $object): LengthAwarePaginator;
 }
