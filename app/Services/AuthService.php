@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Domain\DTO\AuthObject;
 use App\Domain\Enums\UserRoleEnum;
-use App\Exceptions\TokenNotFoundHttpException;
+use App\Exceptions\WrongRoleHttpException;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Mail\RestorePassword;
 use App\Models\User;
@@ -56,7 +56,7 @@ class AuthService implements AuthServiceInterface
             'email' => $email
         ])->first();
         if (!Hash::check($password, $user->password)) {
-            throw new TokenNotFoundHttpException();
+            throw new WrongRoleHttpException();
         }
         Auth::login($user);
         $token = $user->createToken('token')->accessToken;
@@ -91,7 +91,7 @@ class AuthService implements AuthServiceInterface
         $user_token = $this->user_token_repository->findWhere([
             'token' => $token
         ])->first();
-        if (!$user_token) throw new TokenNotFoundHttpException();
+        if (!$user_token) throw new WrongRoleHttpException();
 
         $user = $this->user_repository->findWhere([
             'id' => $user_token->user_id,

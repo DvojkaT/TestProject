@@ -33,10 +33,10 @@ Route::post('/user', [UserController::class, 'editUser'])->middleware('auth:api'
 
 Route::get('/workers/{user}', [UserController::class, 'showWorker'])->middleware('auth:api');
 
-Route::get('/workers', [UserController::class, 'listWorkers'])->middleware('auth:api');
+Route::get('/workers', [UserController::class, 'listWorkers'])->middleware(['auth:api', 'role:worker, ' . \App\Domain\Enums\UserRoleEnum::ADMIN]);
 
 
 Route::get('/departments', [DepartmentController::class, 'listDepartments'])->middleware('auth:api');
-Route::get('/departments/select', [DepartmentController::class,'selectDepartments']);
+Route::get('/departments/select', [DepartmentController::class,'selectDepartments'])->middleware('auth:api');
 
 Route::get('/positions/select', [PositionController::class, 'selectPositions']);
