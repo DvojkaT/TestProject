@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PositionController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\UserController;
 use \App\Http\Controllers\Api\DepartmentController;
@@ -37,3 +38,5 @@ Route::get('/workers', [UserController::class, 'listWorkers'])->middleware('auth
 
 Route::get('/departments', [DepartmentController::class, 'listDepartments'])->middleware('auth:api');
 Route::get('/departments/select', [DepartmentController::class,'selectDepartments']);
+
+Route::get('/positions/select', [PositionController::class, 'selectPositions']);
