@@ -118,13 +118,11 @@ class UserService implements UserServiceInterface
         $user->save();
     }
 
-    public function showUser(int $user_id): UserResource
+    public function showUser(int $user_id): User
     {
-        $user = $this->repository->findWhere([
+        return $this->repository->findWhere([
             'id' => $user_id
         ])->first();
-
-        return new UserResource($user);
     }
 
     public function editUser(int $user_id, array $fields): User

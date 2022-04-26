@@ -65,7 +65,7 @@ class UserController extends Controller
         return new Response('', 201);
     }
 
-    public function showUser()
+    public function showUser(): UserResource
     {
         $user = $this->service->showUser(Auth::id());
 
