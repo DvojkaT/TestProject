@@ -37,7 +37,7 @@ class DepartmentService implements DepartmentServiceInterface
             ]);
         }
 
-        if (!$search) {
+        if ($search === null) {
             return $this->department_repository->all();
         }
         else {

@@ -21,7 +21,7 @@ class PositionService implements PositionServiceInterface
 
     public function listPosition(string $search = null): Collection
     {
-        if(!$search) {
+        if($search === null) {
             return $this->repository->all();
         }
         else {
