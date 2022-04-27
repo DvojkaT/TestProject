@@ -9,6 +9,7 @@ use App\Http\Resources\NameValueResource;
 use App\Services\Abstracts\DepartmentServiceInterface;
 use App\Http\Resources\ListDepartmentsResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
@@ -21,7 +22,8 @@ class DepartmentController extends Controller
 
     public function listDepartments()
     {
-        $departments = $this->department_service->listDepartments();
+        $user_id = Auth::id();
+        $departments = $this->department_service->listDepartments($user_id);
         return ListDepartmentsResource::collection($departments);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Domain\Enums\UserRoleEnum;
 use App\Http\Requests\SearchRequest;
 use App\Repositories\Abstracts\DepartmentRepository;
 use App\Repositories\Abstracts\UserRepository;
@@ -23,10 +24,21 @@ class DepartmentService implements DepartmentServiceInterface
     /**
      * @inheritDoc
      */
-    public function listDepartments(string $search = null): Collection
+    public function listDepartments(int $user_id, string $search = null): Collection
     {
-        if(!$search) {
-        return $this->department_repository->all();
+        $user = $this->user_repository->findWhere([
+            'id' => $user_id
+        ])->first();
+
+        if ($user->role->name == UserRoleEnum::WORKER)
+        {
+            return $this->department_repository->findWhere([
+                'id' => $user['department_id']
+            ]);
+        }
+
+        if (!$search) {
+            return $this->department_repository->all();
         }
         else {
             return $this->department_repository->findWhere([
