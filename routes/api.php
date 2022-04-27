@@ -42,4 +42,4 @@ Route::get('/departments', [DepartmentController::class, 'listDepartments'])->mi
 Route::get('/departments/select', [DepartmentController::class,'selectDepartments'])->middleware('auth:api');
 
 
-Route::get('/positions/select', [PositionController::class, 'selectPositions']);
+Route::get('/positions/select', [PositionController::class, 'selectPositions'])->middleware('auth:api');
