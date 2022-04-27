@@ -19,6 +19,9 @@ class PositionService implements PositionServiceInterface
         $this->user_repository = $user_repository;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function listPosition(string $search = null): Collection
     {
         if($search === null) {
