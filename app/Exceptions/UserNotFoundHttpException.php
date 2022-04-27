@@ -11,12 +11,12 @@ class UserNotFoundHttpException extends BaseHttpException
      *
      * @var int
      */
-    protected int $statusCode = 404;
+    protected int $statusCode = 408;
 
     /**
      * Сообщение об ошибке
      *
      * @var string|null
      */
-    protected $message = "Пользователь не найден";
+    protected $message = "Ошибка в заполнении данных";
 }
