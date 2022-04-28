@@ -28,11 +28,10 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|email|string',
             'type' => 'required|string|in:'.implode(",", TypeEnum::values()),
-            'password' => 'string',
-            'github' => 'required|string',
-            'city' => 'required|string',
-            'phone' => 'required|string',
-            'birthday' => 'required|string',
+            'github' => 'string',
+            'city' => 'string',
+            'phone' => 'string',
+            'birthday' => 'string',
         ];
     }
 }
