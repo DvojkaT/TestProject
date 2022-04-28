@@ -10,5 +10,5 @@ interface DepartmentServiceInterface
     /**
      * @return Collection
      */
-    public function listDepartments(int $user_id, string $search = null): Collection;
+    public function listDepartments(int $user_id = null, string $search = null): Collection;
 }

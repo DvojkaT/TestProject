@@ -29,7 +29,7 @@ class DepartmentController extends Controller
 
     public function selectDepartments(SearchRequest $search)
     {
-        $departments = $this->department_service->listDepartments($search->input('search'));
+        $departments = $this->department_service->listDepartments(null, $search->input('search'));
 
         $departments->transform(function ($item) {
             return new NameValue($item->name, $item->id);

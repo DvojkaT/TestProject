@@ -24,16 +24,18 @@ class DepartmentService implements DepartmentServiceInterface
     /**
      * @inheritDoc
      */
-    public function listDepartments(int $user_id, string $search = null): Collection
+    public function listDepartments(int $user_id = null, string $search = null): Collection
     {
-        $user = $this->user_repository->findWhere([
-            'id' => $user_id
-        ])->first();
-        if ($user->role->name == UserRoleEnum::WORKER)
-        {
-            return $this->department_repository->findWhere([
-                'id' => $user['department_id']
-            ]);
+        if($user_id) {
+            $user = $this->user_repository->findWhere([
+                'id' => $user_id
+            ])->first();
+            if ($user->role->name == UserRoleEnum::WORKER)
+            {
+                return $this->department_repository->findWhere([
+                    'id' => $user['department_id']
+                ]);
+            }
         }
 
         if ($search === null) {
