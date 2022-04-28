@@ -17,6 +17,7 @@ use App\Services\Abstracts\AuthServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AuthService implements AuthServiceInterface
 {
@@ -46,6 +47,9 @@ class AuthService implements AuthServiceInterface
 
         $role = $this->role_repository->findWhere(['name' => UserRoleEnum::USER])->first();
         $fields['role_id'] = $role->id;
+
+        $fields['password'] = Hash::make($fields['password']);
+
         return $this->user_repository->create($fields);
     }
 

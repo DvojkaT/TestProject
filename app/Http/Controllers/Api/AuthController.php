@@ -28,12 +28,14 @@ class AuthController extends Controller
 
     public function store(RegisterRequest $request)
     {
-        $user = $this->auth_service->createUser($request->validated());
+        $attributes = $request->validated();
         $password = Str::random(10);
-        $user->password = Hash::make($password);
-        $user->save();
+        $attributes['password'] = $password;
+
+        $user = $this->auth_service->createUser($attributes);
         Auth::login($user);
         $token = $user->createToken('token')->accessToken;
+
         $auth_object = new AuthObject($token, $user, $password);
 
         return AuthResource::make($auth_object);
