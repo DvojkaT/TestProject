@@ -6,6 +6,7 @@ use App\Domain\DTO\AuthObject;
 use App\Domain\Enums\UserRoleEnum;
 use App\Exceptions\TokenNotFoundHttpException;
 use App\Exceptions\UserNotFoundHttpException;
+use App\Exceptions\WrongPasswordHttpException;
 use App\Exceptions\WrongRoleHttpException;
 use App\Exceptions\UserAlreadyExistsHttpException;
 use App\Mail\RestorePassword;
@@ -66,7 +67,7 @@ class AuthService implements AuthServiceInterface
             throw new UserNotFoundHttpException();
         }
         elseif (!Hash::check($password, $user->password)) {
-            throw new UserNotFoundHttpException();
+            throw new WrongPasswordHttpException();
         }
 
         Auth::login($user);

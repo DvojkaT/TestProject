@@ -16,5 +16,5 @@ class WrongPasswordHttpException extends BaseHttpException
      *
      * @var string|null
      */
-    protected $message = "Ошибка в заполнении данных";
+    protected $message = "Введён неверный пароль";
 }
