@@ -9,6 +9,28 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use TCG\Voyager\Models\Role;
 
+/**
+ * /**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $image
+ * @property string $about
+ * @property string $type
+ * @property string $github
+ * @property string $city
+ * @property string $phone
+ * @property string $birthday
+ * @property int $role_id
+ * @property int $department_id
+ * @property int $position_id
+ * @property string $adopted_at
+ * @property string $login
+ * @property int $is_finished
+ * @property-read Department $department
+ * @property-read Position $position
+ */
 class User extends \TCG\Voyager\Models\User
 {
     use HasApiTokens, HasFactory, Notifiable;

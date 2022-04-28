@@ -11,6 +11,17 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class NameValueResource extends JsonResource
 {
     /**
+     * Create a new resource instance.
+     *
+     * @param NameValue $resource
+     * @return void
+     */
+    public function __construct(NameValue $resource)
+    {
+        parent::__construct($resource);
+    }
+
+    /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request

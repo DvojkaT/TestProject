@@ -2,10 +2,25 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin User
+ */
 class UserResource extends JsonResource
 {
+    /**
+     * Create a new resource instance.
+     *
+     * @param User $resource
+     * @return void
+     */
+    public function __construct(User $resource)
+    {
+        parent::__construct($resource);
+    }
+
     /**
      * Transform the resource into an array.
      *
