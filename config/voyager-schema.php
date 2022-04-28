@@ -8,7 +8,8 @@ return [
     */
     "schemas" => [
         \App\Schema\Tables\UserDataType::class,
-        \App\Schema\Tables\DepartmentDataType::class
+        \App\Schema\Tables\DepartmentDataType::class,
+        \App\Schema\Tables\PositionDataType::class
     ],
 
     /*
@@ -22,6 +23,7 @@ return [
     "menu" => [
         ["class" => \App\Schema\Tables\UserDataType::class],
         ["class" => \App\Schema\Tables\DepartmentDataType::class],
+        ["class" => \App\Schema\Tables\PositionDataType::class],
         [
             "custom"     => true,
             'locale'     => 'voyager::seeders.menu_items.dashboard',
