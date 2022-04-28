@@ -5,8 +5,6 @@ namespace App\Schema\Tables;
 use App\Models\Department;
 use Atwinta\Voyager\Domain\Enum\FieldType;
 use Atwinta\Voyager\Schema\BaseDataType;
-use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Models\User;
 
 /**
  * Class UserDataType

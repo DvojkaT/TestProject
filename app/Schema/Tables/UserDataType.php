@@ -5,7 +5,7 @@ namespace App\Schema\Tables;
 use Atwinta\Voyager\Domain\Enum\FieldType;
 use Atwinta\Voyager\Schema\BaseDataType;
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Models\User;
+use App\Models\User;
 
 /**
  * Class UserDataType
@@ -55,16 +55,63 @@ class UserDataType extends BaseDataType
             "name" => [
                 "display_name" => "Имя",
             ],
+            "user_belongsto_department_relationship" => [
+                "type" => FieldType::RELATIONSHIP,
+                "display_name" => "Отдел",
+                "required" => false,
+                "delete" => false,
+                "browse" => true,
+                "details" => [
+                    "model" => "App\Models\Department",
+                    "table" => "departments",
+                    "type" => "belongsTo",
+                    "column" => "department_id",
+                    "key" => "id",
+                    "label" => "name",
+                    "pivot_table" => "departments",
+                    "pivot" => 0
+                ]
+            ],
+            "department_id" => [
+                "display_name" => "Отдел"
+            ],
+            "user_belongsto_position_relationship" => [
+                "type" => FieldType::RELATIONSHIP,
+                "display_name" => "Должность",
+                "required" => false,
+                "delete" => false,
+                "browse" => true,
+                "details" => [
+                    "model" => "App\Models\Position",
+                    "table" => "positions",
+                    "type" => "belongsTo",
+                    "column" => "position_id",
+                    "key" => "id",
+                    "label" => "name",
+                    "pivot_table" => "positions",
+                    "pivot" => 0
+                ]
+            ],
+            "position_id" => [
+                "display_name" => "Должность"
+            ],
+            "type" => [
+                "display_name" => "Тип"
+            ],
             "about" => [
                 "display_name" => "Обо мне",
                 "required" => false,
                 "edit" => true,
             ],
+            "birthday" => [
+                "display_name" => "Дата рождения",
+                "browse" => false,
+            ],
+            "phone" => [
+                "display_name" => "Номер телефона",
+            ],
             "github" => [
                 "display_name" => "GitHub"
-            ],
-            "type" => [
-                "display_name" => "Тип"
             ],
             "city" => [
                 "display_name" => "Город"
@@ -93,6 +140,11 @@ class UserDataType extends BaseDataType
                 "display_name" => "Закончил работу",
                 "required" => false,
             ],
+            "adopted_at" => [
+                "display_name" => "Дата принятия",
+                "required" => false,
+                "browse" => false,
+            ],
             "email_verified_at" => [
                 "display_name" => "Дата подтверждения почты",
                 "required" => false,
@@ -107,6 +159,7 @@ class UserDataType extends BaseDataType
                 "type" => FieldType::IMAGE,
                 "display_name" => "Аватар",
                 "required" => false,
+                "browse" => false,
             ],
             "user_belongsto_role_relationship" => [
                 "type" => FieldType::RELATIONSHIP,
@@ -161,10 +214,6 @@ class UserDataType extends BaseDataType
                 "read" => true,
                 "edit" => false,
                 "add" => false
-            ],
-            "details" => [
-                "display_name" => "Детали",
-                "browse" => true,
             ],
         ];
     }

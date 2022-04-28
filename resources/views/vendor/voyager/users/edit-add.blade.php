@@ -40,8 +40,8 @@
 
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="name">{{ __('voyager::generic.name') }}</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('voyager::generic.name') }}"
+                                <label for="name">Имя</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Имя"
                                        value="{{ old('name', $dataTypeContent->name ?? '') }}">
                             </div>
 
@@ -52,9 +52,73 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="about">{{ __('voyager::generic.about') }}</label>
-                                <input type="about" class="form-control" id="about" name="about" placeholder="{{ __('voyager::generic.about') }}"
+                                <label for="about">Обо мне</label>
+                                <input type="about" class="form-control" id="about" name="about" placeholder="Обо мне"
                                        value="{{ old('about', $dataTypeContent->about ?? '') }}">
+                            </div>
+
+                            @php
+                                if (isset($dataTypeContent->type)) {
+                                    $selected_type = $dataTypeContent->type;
+                                    }
+                                    else {
+                                        $selected_type = null;
+                                    }
+                            @endphp
+                            <div class="form-group">
+                                <label for="type">Тип</label>
+                                <select class="form-control select2" id="type" name="type">
+                                    @foreach (\App\Domain\Enums\TypeEnum::values() as $type)
+                                        <option value="{{ $type }}"
+                                            {{ ($type == $selected_type ? 'selected' : '') }}>{{ $type }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="github">Гитхаб</label>
+                                <input type="github" class="form-control" id="github" name="github" placeholder="Гитхаб"
+                                       value="{{ old('github', $dataTypeContent->github ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">Город</label>
+                                <input type="city" class="form-control" id="github" name="city" placeholder="Город"
+                                       value="{{ old('city', $dataTypeContent->city ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Номер телефона</label>
+                                <input type="phone" class="form-control" id="phone" name="phone" placeholder="Номер телефона"
+                                       value="{{ old('phone', $dataTypeContent->phone ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birthday">Дата рождения</label>
+                                <input type="birthday" class="form-control" id="birthday" name="birthday" placeholder="Дата рождения"
+                                       value="{{ old('birthday', $dataTypeContent->birthday ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department">Отдел</label>
+                                @php
+                                    $dataTypeRows = $dataType->{(isset($dataTypeContent->department_id) ? 'editRows' : 'addRows' )};
+
+                                    $row     = $dataTypeRows->where('field', 'user_belongsto_department_relationship')->first();
+                                    $options = $row->details;
+                                @endphp
+                                @include('voyager::formfields.relationship')
+                            </div>
+
+                            <div class="form-group">
+                                <label for="position">Должность</label>
+                                @php
+                                    $dataTypeRows = $dataType->{(isset($dataTypeContent->position_id) ? 'editRows' : 'addRows' )};
+
+                                    $row     = $dataTypeRows->where('field', 'user_belongsto_position_relationship')->first();
+                                    $options = $row->details;
+                                @endphp
+                                @include('voyager::formfields.relationship')
                             </div>
 
                             <div class="form-group">
@@ -68,7 +132,7 @@
 
                             @can('editRoles', $dataTypeContent)
                                 <div class="form-group">
-                                    <label for="default_role">{{ __('voyager::profile.role_default') }}</label>
+                                    <label for="default_role">Роль</label>
                                     @php
                                         $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
 
