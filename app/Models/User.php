@@ -86,7 +86,7 @@ class User extends \TCG\Voyager\Models\User
         return $this->belongsTo(Position::class,'position_id', 'id');
     }
 
-    public function role()
+    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
