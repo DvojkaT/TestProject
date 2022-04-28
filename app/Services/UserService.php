@@ -44,7 +44,7 @@ class UserService implements UserServiceInterface
     /**
      * @inheritDoc
      */
-    public function showWorker($id): User
+    public function showWorker(int $id): User
     {
         return $this->repository->findWhere([
             'id' => $id,

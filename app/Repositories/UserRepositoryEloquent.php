@@ -17,6 +17,9 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function filter(?WorkerFilter $object, int $per_page = 10): LengthAwarePaginator | Collection
     {
         /** @var Builder $builder */

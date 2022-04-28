@@ -9,5 +9,10 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 interface UserRepository extends RepositoryInterface
 {
+    /**
+     * @param WorkerFilter|null $object
+     * @param int $per_page
+     * @return LengthAwarePaginator|Collection
+     */
     public function filter(?WorkerFilter $object, int $per_page = 10): LengthAwarePaginator | Collection;
 }

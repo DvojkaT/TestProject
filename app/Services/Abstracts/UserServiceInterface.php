@@ -27,10 +27,10 @@ interface UserServiceInterface
     public function editUser(int $user_id, array $fields): User;
 
     /**
-     * @param $id
+     * @param int $id
      * @return User
      */
-    public function showWorker($id): User;
+    public function showWorker(int $id): User;
 
     /**
      * @param WorkerFilter $object

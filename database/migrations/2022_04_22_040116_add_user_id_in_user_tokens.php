@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('user_tokens', function (Blueprint $table) {
-            $table->UnsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
         });
     }
