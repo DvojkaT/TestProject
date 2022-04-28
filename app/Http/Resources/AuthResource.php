@@ -5,7 +5,10 @@ namespace App\Http\Resources;
 use App\Domain\DTO\AuthObject;
 use App\Models\User;
 use App\Models\UserToken;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use JsonSerializable;
 
 /**
  * @mixin AuthObject
@@ -23,13 +26,14 @@ class AuthResource extends JsonResource
         parent::__construct($resource);
     }
 
+    public static $wrap = '';
+
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param  Request  $request
+     * @return array
      */
-    public static $wrap = '';
     public function toArray($request)
     {
         return [

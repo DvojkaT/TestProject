@@ -1,0 +1,27 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method App\\\\Http\\\\Middleware\\\\Authenticate\\:\\:redirectTo\\(\\) should return string\\|null but return statement is missing\\.$#"
+			count: 1
+			path: app/Http/Middleware/Authenticate.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Foundation\\\\Application\\:\\:routesAreCached\\(\\)\\.$#"
+			count: 1
+			path: app/Providers/AuthServiceProvider.php
+
+		-
+			message: "#^Method App\\\\Repositories\\\\UserRepositoryEloquent\\:\\:filter\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\|Illuminate\\\\Support\\\\Collection but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
+			count: 1
+			path: app/Repositories/UserRepositoryEloquent.php
+
+		-
+			message: "#^Undefined variable\\: \\$this$#"
+			count: 1
+			path: routes/console.php
+
+		-
+			message: "#^Call to static method routes\\(\\) on an unknown class Voyager\\.$#"
+			count: 1
+			path: routes/web.php
+
