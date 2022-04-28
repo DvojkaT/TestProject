@@ -33,12 +33,7 @@ class UserService implements UserServiceInterface
      */
     public function editUser(int $user_id, array $fields): User
     {
-        $user = $this->repository->findWhere([
-            'id' => $user_id,
-    ])->first();
-        $user->update($fields);
-
-        return $user;
+        return $this->repository->update($fields, $user_id);
     }
 
     /**
