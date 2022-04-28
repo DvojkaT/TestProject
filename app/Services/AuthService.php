@@ -43,7 +43,7 @@ class AuthService implements AuthServiceInterface
             'email' => $fields['email'],
         ])->first();
 
-        if($user_check) throw new UserAlreadyExistsHttpException();
+        if ($user_check) throw new UserAlreadyExistsHttpException();
 
         $role = $this->role_repository->findWhere(['name' => UserRoleEnum::USER])->first();
         $fields['role_id'] = $role->id;
