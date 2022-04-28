@@ -29,7 +29,6 @@ class DepartmentService implements DepartmentServiceInterface
         $user = $this->user_repository->findWhere([
             'id' => $user_id
         ])->first();
-
         if ($user->role->name == UserRoleEnum::WORKER)
         {
             return $this->department_repository->findWhere([

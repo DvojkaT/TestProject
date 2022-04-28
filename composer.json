@@ -6,13 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "doctrine/dbal": "^3.3",
+        "atwinta/voyager-schema": "dev-main",
+        "doctrine/dbal": "^2.13.5",
+        "guest-one/composer-require-ext": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
         "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "prettus/l5-repository": "^2.8"
+        "prettus/l5-repository": "^2.8",
+        "tcg/voyager": "^1.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -57,8 +60,17 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "guest-one/composer-require-ext": true
+        }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "package"
+        }
+    ]
 }

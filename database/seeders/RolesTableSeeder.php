@@ -3,21 +3,18 @@
 namespace Database\Seeders;
 
 use App\Domain\Enums\UserRoleEnum;
-use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use TCG\Voyager\Models\Role;
 
-class RoleSeeder extends Seeder
+class RolesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * Auto generated seed file.
      */
     public function run()
     {
         foreach (UserRoleEnum::values() as $role) {
-            Role::firstOrCreate(['name' => $role]);
+            Role::firstOrCreate(['name' => $role, 'display_name' => $role]);
         }
     }
 }
